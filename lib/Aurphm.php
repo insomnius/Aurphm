@@ -77,7 +77,6 @@ class Aurphm
         $hashed         = $beforeMerge.$pbkdf2;
         
         return $hashed;
-        // 206
     }
 
     public function hashCheck($credential, $password, $passwordDB)

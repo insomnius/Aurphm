@@ -1,5 +1,6 @@
 <?php
-include "../lib/Aurphm.php";
+require "../src/Aurphm.php";
+use insomnius\Aurphm;
 
 if(!isset($_POST['credential']))
 {

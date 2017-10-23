@@ -1,16 +1,21 @@
 <?php
 //-- Aurelia Pseudo Hashing Method
 //-- Created by Arib
+//-- Thanks to Genoffe Studio for supporting me create this class
+//-- http://genoffe.com
+
+namespace insomnius;
 
 class Aurphm
 {
 
-    protected $iteration    = 16;
-    protected $length       = 512;
-    protected $prefix       = "AURPHFAS";
+    protected $iteration        = 16;
+    protected $pbkdf2_length    = 308;
+    protected $prefix           = "AURPHM";
 
-    protected function getSalt($AURPHFAS){
-        $validationArray    = explode(".", $AURPHFAS);
+    protected function getSalt($AURPHM)
+    {
+        $validationArray    = explode(".", $AURPHM);
 
         $tobeSalt           = $validationArray[0];
 
@@ -21,8 +26,9 @@ class Aurphm
         return $returnSalt;
     }
 
-    protected function getSignature($AURPHFAS){ //-- Get signature from user password
-        $validationArray    = explode(".", $AURPHFAS);
+    protected function getSignature($AURPHM)
+    {
+        $validationArray    = explode(".", $AURPHM);
         $signature          = $validationArray[2];
 
         return $signature;
@@ -49,12 +55,12 @@ class Aurphm
 
     public function setLength($length)
     {
-        if($length < 256)
+        if($length < 16)
         {
             return "Password length can't be less than 256 character.";
         }
 
-        $this->length       = $length;
+        $this->pbkdf2_length    = $length;
 
         return $this;
     }
@@ -72,7 +78,7 @@ class Aurphm
         
         $beforeMerge    = "$prefix$hmacHash.$userUnique.UC_";
 
-        $pbkdf2         = hash_pbkdf2("SHA512", $userUnique, $hmacHash, $this->iteration, $this->length - strlen($beforeMerge));
+        $pbkdf2         = hash_pbkdf2("SHA512", $userUnique, $hmacHash, $this->iteration, $this->pbkdf2_length);
         
         $hashed         = $beforeMerge.$pbkdf2;
         
@@ -86,7 +92,7 @@ class Aurphm
 
         $userUnique     = hash_hmac("SHA512", $credential.$password, $salt);
 
-        $pbkdf2         = "UC_".hash_pbkdf2("SHA512", $userUnique, $salt, $this->iteration, 306);
+        $pbkdf2         = "UC_".hash_pbkdf2("SHA512", $userUnique, $salt, $this->iteration, $this->pbkdf2_length);
 
         if($pbkdf2 == $signature){
             return true;

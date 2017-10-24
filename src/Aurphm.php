@@ -94,7 +94,8 @@ class Aurphm
 
         $pbkdf2         = "UC_".hash_pbkdf2("SHA512", $userUnique, $salt, $this->iteration, $this->pbkdf2_length);
 
-        if($pbkdf2 == $signature){
+        if(hash_equals($pbkdf2, $signature))
+        {
             return true;
         }else{
             return false;

@@ -7,6 +7,8 @@
     <title>Aurphm - by Insomnius</title>
     <!-- Bootstrap -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <!-- Sweet Alert -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
     <style>
     
     body
@@ -77,7 +79,7 @@
                             <label for='gen-password-1'>Generated Hash</label>
                             <textarea class='form-control' id='gen-password-1'></textarea>
                         </div>
-                        <p>Password length: <span id='gen-password-1-length'></span></p>
+                        <p>Hash length: <span id='gen-password-1-length'></span></p>
                     </div>
                 </div>
 
@@ -132,7 +134,7 @@
                             <label for='gen-password-2'>Generated Hash</label>
                             <textarea class='form-control' id='gen-password-2'></textarea>
                         </div>
-                        <p>Password length: <span id='gen-password-2-length'></span></p>
+                        <p>Hash length: <span id='gen-password-2-length'></span></p>
                     </div>
                 </div>
                 
@@ -148,6 +150,35 @@
                         </ul>
                     </div>
                 </div>
+                <hr>
+                <h5>Authenticate</h5>
+                <p>Authenticate your password here.</p>
+                <div class='row'>
+                    <div class='col-md-4'>
+                        <div class='form-group'>
+                            <label for='credential-3'>Credential</label>
+                            <input type='text' id='credential-3' class='form-control' placeholder='Credential...'>
+                        </div>
+                        <div class='form-group'>
+                            <label for='password-3'>Password</label>
+                            <input type='password' id='password-3' class='form-control' placeholder='Password...'>
+                        </div>
+
+                        <p>Password Value: <span id='password-3-val'></span></p>
+
+                        <div class='form-group'>
+                            <button id='password-submit-3' class='btn btn-primary'>Submit</buton>
+                        </div>
+                    </div>
+
+                    <div class='col-md-8'>
+                        <div class='form-group'>
+                            <label for='gen-password-3'>To Be Authenticated Hash</label>
+                            <textarea class='form-control' id='gen-password-3'></textarea>
+                        </div>
+                        <p>Hash length: <span id='gen-password-3-length'></span></p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -160,6 +191,8 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <!-- Bootstrap Javascript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<!-- Sweet Alert -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
 <script>
 $(document).ready(function()
@@ -230,6 +263,23 @@ $(document).ready(function()
         });
     });
 
+    $("#password-submit-3").click(function()
+    {
+        jQuery.ajax({
+            url: "/submit4.php",
+            method: "POST",
+            data: {password : $("#password-3").val(), credential : $("#credential-3").val(), hash : $("#gen-password-3").val()},
+            dataType : 'JSON',
+            success: function(e)
+            {
+                swal({
+                    title : e['title'],
+                    text: e['text'],
+                    type : e['type']
+                });
+            }
+        });
+    })
 });
 </script>
 </html>

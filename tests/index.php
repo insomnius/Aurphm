@@ -44,10 +44,17 @@
                 <p>
                     Aurelia pseudo hashing method is my experimental function to hash password with HMAC (Hash-based message authentication code), PBKDF2 (Password-Based Key Derivation Function 2) and Pseudo Random Bytes.
                 </p>
+                <p>
+                    The aim for this library is to ensure that the user password randomly generated everytime user do Authentication and we can still Authenticate that with simple way. The basic structure of my hash result is <b>AURHPHM_SALT.USERUNIQUE.UC_SIGNATURE</b>.
+                </p>
                 <hr>
                 <h5>Generating Hash</h5>
                 <div class='row'>
-                    
+                    <div class='col-md-12'>
+                    <p>
+                        Credential must be your key to hash the password. The hash result will change overtime, but you can still authenticate the password with simple way.
+                    </p>
+                    </div>
                     <div class='col-md-4'>
                         <div class='form-group'>
                             <label for='credential-1'>Credential</label>
@@ -76,7 +83,8 @@
 
                 <hr>
                 <h5>Advance Option</h5>
-                <p>You can set numbers of iteration, length of the hashed value and prefix. Hash length has to be higher than 256 characters.</p>
+                <p>You can set numbers of iteration, length of the hashed value and prefix. Hash length has to be higher than 256 characters. You can even change the algorithm, as a default i use SHA256 for salt and SHA512 for both of user unique and hash signature.</p>
+                <p>Password algorithm that u use must be supported by your version of PHP. If you dont know what algorithm do you have, please click the button bellow this section.</p>
                 <div class='row'>
                     
                     <div class='col-md-4'>
@@ -90,12 +98,24 @@
                         </div>
                         <p>Password Value: <span id='password-2-val'></span></p>
                         <div class='form-group'>
-                            <label for='iteration-2'>Iteration</label>
+                            <label for='iteration-2'>Signature Iteration</label>
                             <input type='number' id='iteration-2' class='form-control' placeholder='Iteration...' value='16'>
                         </div>
                         <div class='form-group'>
-                            <label for='length-2'>PBKDF2 Length</label>
-                            <input type='number' id='length-2' class='form-control' placeholder='Length...' value='306'>
+                            <label for='signature-length-2'>Signature Length</label>
+                            <input type='number' id='signature-length-2' class='form-control' placeholder='Length...' value='64'>
+                        </div>
+                        <div class='form-group'>
+                            <label for='salt-algo-2'>Salt Algorithm</label>
+                            <input type='text' id='salt-algo-2' class='form-control' placeholder='Salt Algorithm...' value='SHA256'>
+                        </div>
+                        <div class='form-group'>
+                            <label for='userunique-algo-2'>User Unique Algorithm</label>
+                            <input type='text' id='userunique-algo-2' class='form-control' placeholder='User Unique Algorithm...' value='SHA512'>
+                        </div>
+                        <div class='form-group'>
+                            <label for='signature-algo-2'>Signature Algorithm</label>
+                            <input type='text' id='signature-algo-2' class='form-control' placeholder='Signature Algorithm...' value='SHA512'>
                         </div>
                         <div class='form-group'>
                             <label for='prefix-2'>Prefix</label>
@@ -115,11 +135,25 @@
                         <p>Password length: <span id='gen-password-2-length'></span></p>
                     </div>
                 </div>
+                
+                <hr>
+                <h5>List of Hashing Algorithm</h5>
+                <p>You can see what algorithm avalaible in your php.</p>
+                <div class='row'>
+                    <div class='col-md-12'>
+                        <button class='btn btn-primary' id='algo-list'>Click to see the list.</button>
+                        <br><br>
+                        <ul id='algo-list-content'>
+
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <br>
-
+        <hr>
+        Copyrigth &copy; insomnius, All right reserved. awc.aliana@gmail.com .
+        <br><br>
     </div>
 </body>
 <!-- JQuery -->
@@ -148,7 +182,7 @@ $(document).ready(function()
         var password    = $("#password-1").val();
 
         jQuery.ajax({
-            url: "/tests/submit1.php",
+            url: "/submit1.php",
             method: "POST",
             data: {credential : credential, password : password},
             success: function(e)
@@ -164,14 +198,17 @@ $(document).ready(function()
     {
         var credential  = $("#credential-2").val();
         var password    = $("#password-2").val();
-        var length      = $("#length-2").val();
+        var length      = $("#signature-length-2").val();
         var iteration   = $("#iteration-2").val();
         var prefix      = $("#prefix-2").val();
+        var saltalgo        = $("#salt-algo-2").val();
+        var useruniquealgo  = $("#userunique-algo-2").val();
+        var signaturealgo   = $("#signature-algo-2").val();
 
         jQuery.ajax({
-            url: "/tests/submit2.php",
+            url: "/submit2.php",
             method: "POST",
-            data: {credential : credential, password : password, length : length, iteration : iteration, prefix : prefix},
+            data: {credential : credential, password : password, length : length, iteration : iteration, prefix : prefix, saltalgo : saltalgo, useruniquealgo : useruniquealgo, signaturealgo : signaturealgo},
             success: function(e)
             {
                 $("#gen-password-2").val(e);
@@ -179,6 +216,18 @@ $(document).ready(function()
             }
         });
 
+    });
+
+    $("#algo-list").click(function()
+    {
+        jQuery.ajax({
+            url: "/submit3.php",
+            method: "GET",
+            success: function(e)
+            {
+                $("#algo-list-content").html(e);
+            }
+        });
     });
 
 });

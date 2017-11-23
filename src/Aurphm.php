@@ -4,14 +4,25 @@
 //-- Thanks to Genoffe Studio for supporting me create this class
 //-- http://genoffe.com
 
-namespace insomnius;
+namespace Insomnius;
+
+use Exception;
 
 class Aurphm
 {
 
     protected $iteration        = 16;
-    protected $pbkdf2_length    = 308;
+    protected $pbkdf2_length    = 64;
     protected $prefix           = "AURPHM";
+    
+    protected $salt_algo        = "SHA256";
+    protected $userunique_algo  = "SHA512";
+    protected $signature_algo   = "SHA512";
+
+    public function __construct()
+    {
+
+    }
 
     protected function getSalt($AURPHM)
     {
@@ -38,7 +49,7 @@ class Aurphm
     {
         if(!is_numeric($iteration))
         {
-            return "Iteration value must be integer.";
+            throw new Exception("Iteration value must be integer.");
         }
 
         $this->iteration    = $iteration;
@@ -53,15 +64,53 @@ class Aurphm
         return $this;
     }
 
-    public function setLength($length)
+    static public function list()
+    {
+        return hash_algos();
+    }
+
+    public function setSignatureLength($length)
     {
         if($length < 16)
         {
-            return "Password length can't be less than 256 character.";
+            throw new Exception("Password length can't be less than 16 character.");
         }
 
         $this->pbkdf2_length    = $length;
 
+        return $this;
+    }
+
+    public function setSaltAlgo($algo)
+    {
+        if(array_search(strtolower($algo), self::list()))
+        {
+            throw new Exception("This hash algorithm '$algo' not avalaible in you php version.");
+        }
+
+        $this->salt_algo    = $algo;
+        return $this;
+    }
+
+    public function setUserUniqueAlgo($algo)
+    {
+        if(array_search(strtolower($algo), self::list()))
+        {
+            throw new Exception("This hash algorithm '$algo' not avalaible in you php version.");
+        }
+
+        $this->userunique_algo  = $algo;
+        return $this;
+    }
+
+    public function setSignatureAlgo($algo)
+    {
+        if(array_search(strtolower($algo), self::list()))
+        {
+            throw new Exception("This hash algorithm '$algo' not avalaible in you php version.");
+        }
+
+        $this->signature_algo   = $algo;
         return $this;
     }
 
@@ -70,15 +119,15 @@ class Aurphm
         $randomChar     = bin2hex(random_bytes(64));
         $randomCharSSL  = bin2hex(openssl_random_pseudo_bytes(64));
         
-        $hmacHash       = hash_hmac("SHA256", $password.$randomChar.$randomCharSSL, $randomChar.$randomCharSSL);
+        $hmacHash       = hash_hmac($this->salt_algo, $password.$randomChar.$randomCharSSL, $randomChar.$randomCharSSL);
         
         $prefix         = $this->prefix . "_";
         
-        $userUnique     = hash_hmac("SHA512", $credential.$password, $hmacHash);
+        $userUnique     = hash_hmac($this->userunique_algo, $credential.$password, $hmacHash);
         
         $beforeMerge    = "$prefix$hmacHash.$userUnique.UC_";
 
-        $pbkdf2         = hash_pbkdf2("SHA512", $userUnique, $hmacHash, $this->iteration, $this->pbkdf2_length);
+        $pbkdf2         = hash_pbkdf2($this->signature_algo, $userUnique, $hmacHash, $this->iteration, $this->pbkdf2_length);
         
         $hashed         = $beforeMerge.$pbkdf2;
         

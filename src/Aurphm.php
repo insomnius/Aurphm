@@ -21,7 +21,7 @@ class Aurphm
     {
         return new self;
     }
-    
+
     public function setIteration($iteration)
     {
         if(!is_numeric($iteration))
@@ -132,14 +132,14 @@ class Aurphm
         return $hashed;
     }
 
-    protected function hashCheck($credential, $key, $hash)
+    public static function authenticate($credential, $key, $hash)
     {
-        $salt           = $this->getSalt($hash);
-        $signature      = $this->getSignature($hash);
+        $salt           = self::getSalt($hash);
+        $signature      = self::getSignature($hash);
 
-        $userUnique     = hash_hmac($this->userunique_algo, $credential.$key, $salt);
+        $userUnique     = hash_hmac(self::$userunique_algo, $credential.$key, $salt);
 
-        $pbkdf2         = "UC_".hash_pbkdf2($this->signature_algo, $userUnique, $salt, $this->iteration, $this->signature_length);
+        $pbkdf2         = "UC_".hash_pbkdf2(self::$signature_algo, $userUnique, $salt, self::$iteration, self::$signature_length);
 
         if(hash_equals($pbkdf2, $signature))
         {
@@ -149,8 +149,4 @@ class Aurphm
         }
     }
 
-    public static function authenticate($credential, $key, $hash)
-    {
-        return (new self)->hashCheck($credential, $key, $hash);
-    }
 }

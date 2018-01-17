@@ -72,4 +72,11 @@ else
 }
 ```
 
+## Demo
+You can also view the demo i made in tests folder using php development server, just type this in your command prompt if you're using windows (make sure you are in the root directory of this project):
+    
+    php -S localhost:7800 -t ./tests/
+
+And then open your browser with address http:\\localhost:7800.
+
 That's it, have fun to use it! :)

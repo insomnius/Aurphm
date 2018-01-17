@@ -10,7 +10,6 @@ if(!isset($_POST['credential']))
 $credential = $_POST['credential'];
 $password   = $_POST['password'];
 
-$aurphm     = new Aurphm();
-$hash       = $aurphm->generateHashing($credential, $password);
+$hash       = Aurphm::hash($credential, $password);
 
 echo $hash;

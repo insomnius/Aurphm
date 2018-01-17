@@ -16,16 +16,14 @@ try{
     $saltalgo        = $_POST['saltalgo'];
     $useruniquealgo  = $_POST['useruniquealgo'];
     $signaturealgo   = $_POST['signaturealgo'];
-
-    $aurphm     = new Aurphm();
     
-    $hash       = $aurphm->setIteration($iteration)
-                    ->setPrefix($prefix)
-                    ->setSignatureLength($length)
-                    ->setSaltAlgo($saltalgo)
-                    ->setUserUniqueAlgo($useruniquealgo)
-                    ->setSignatureAlgo($signaturealgo)
-                    ->generateHashing($credential, $password);
+    $hash       = Aurphm::init()->setIteration($iteration)
+                ->setPrefix($prefix)
+                ->setSignatureLength($length)
+                ->setSaltAlgo($saltalgo)
+                ->setUserUniqueAlgo($useruniquealgo)
+                ->setSignatureAlgo($signaturealgo)
+                ->hash($credential, $password);
     
     echo $hash;
 }

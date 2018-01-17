@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Aurphm - by Insomnius</title>
     <!-- Bootstrap -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
     <!-- Sweet Alert -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
     <style>
@@ -51,6 +51,7 @@
                 </p>
                 <hr>
                 <h5>Generating Hash</h5>
+                <figure class="highlight"><pre><code class="language-html" data-lang="html">File: ./tests/submit1.php</code></pre></figure>
                 <div class='row'>
                     <div class='col-md-12'>
                     <p>
@@ -85,6 +86,7 @@
 
                 <hr>
                 <h5>Advance Option</h5>
+                <figure class="highlight"><pre><code class="language-html" data-lang="html">File: ./tests/submit2.php</code></pre></figure>
                 <p>You can set numbers of iteration, length of the hashed value and prefix. Hash length has to be higher than 256 characters. You can even change the algorithm, as a default i use SHA256 for salt and SHA512 for both of user unique and hash signature.</p>
                 <p>Password algorithm that u use must be supported by your version of PHP. If you dont know what algorithm do you have, please click the button bellow this section.</p>
                 <div class='row'>
@@ -140,6 +142,7 @@
                 
                 <hr>
                 <h5>List of Hashing Algorithm</h5>
+                <figure class="highlight"><pre><code class="language-html" data-lang="html">File: ./tests/submit3.php</code></pre></figure>
                 <p>You can see what algorithm avalaible in your php.</p>
                 <div class='row'>
                     <div class='col-md-12'>
@@ -152,6 +155,7 @@
                 </div>
                 <hr>
                 <h5>Authenticate</h5>
+                <figure class="highlight"><pre><code class="language-html" data-lang="html">File: ./tests/submit4.php</code></pre></figure>
                 <p>Authenticate your password here.</p>
                 <div class='row'>
                     <div class='col-md-4'>
@@ -188,9 +192,9 @@
     </div>
 </body>
 <!-- JQuery -->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <!-- Bootstrap Javascript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
 <!-- Sweet Alert -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 

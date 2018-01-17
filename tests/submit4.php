@@ -6,9 +6,7 @@ $hash_value     = $_POST['hash'];
 $password       = $_POST['password'];
 $credential     = $_POST['credential'];
 
-$aurphm     = new Aurphm();
-
-if($aurphm->hashCheck($credential, $password, $hash_value))
+if(Aurphm::authenticate($credential, $password, $hash_value))
 {
     $output['text']     = "Authentication success.";
     $output['type']     = "success";
@@ -19,7 +17,7 @@ if($aurphm->hashCheck($credential, $password, $hash_value))
 else
 {
     $output['text']     = "Authentication failed.";
-    $output['type']     = "success";
+    $output['type']     = "error";
     $output['title']    = "";
     
     echo json_encode($output);

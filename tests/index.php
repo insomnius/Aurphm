@@ -213,6 +213,11 @@ $(document).ready(function()
         $("#password-2-val").html($(this).val());
     });
 
+    $("#password-3").on("input", function()
+    {
+        $("#password-3-val").html($(this).val());
+    });
+
     $("#password-submit-1").click(function()
     {
         var credential  = $("#credential-1").val();

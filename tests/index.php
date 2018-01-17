@@ -226,7 +226,7 @@ $(document).ready(function()
         jQuery.ajax({
             url: "/submit1.php",
             method: "POST",
-            data: {credential : credential, password : password},
+            data: {credential : credential, key : password},
             success: function(e)
             {
                 $("#gen-password-1").val(e);
@@ -250,7 +250,7 @@ $(document).ready(function()
         jQuery.ajax({
             url: "/submit2.php",
             method: "POST",
-            data: {credential : credential, password : password, length : length, iteration : iteration, prefix : prefix, saltalgo : saltalgo, useruniquealgo : useruniquealgo, signaturealgo : signaturealgo},
+            data: {credential : credential, key : password, length : length, iteration : iteration, prefix : prefix, saltalgo : saltalgo, useruniquealgo : useruniquealgo, signaturealgo : signaturealgo},
             success: function(e)
             {
                 $("#gen-password-2").val(e);
@@ -277,7 +277,7 @@ $(document).ready(function()
         jQuery.ajax({
             url: "/submit4.php",
             method: "POST",
-            data: {password : $("#password-3").val(), credential : $("#credential-3").val(), hash : $("#gen-password-3").val()},
+            data: {key : $("#password-3").val(), credential : $("#credential-3").val(), hash : $("#gen-password-3").val()},
             dataType : 'JSON',
             success: function(e)
             {

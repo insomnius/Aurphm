@@ -17,9 +17,9 @@ Here is a simple step to generate a hash:
 	use insomnius\Aurphm;
 
 	$credential = "credential";
-	$key   		= "key";
+	$key = "key";
 
-	$hash       = Aurphm::hash($credential, $key);
+	$hash = Aurphm::hash($credential, $key);
 	
 	echo $hash;
 ```
@@ -33,16 +33,16 @@ Here is the example code:
 
 ```php
     $credential = 'credential';
-	$key        = 'key';
-    $length     = 128;
-    $iteration  = 64;
-    $prefix     = 'GITHUB';
+	$key = 'key';
+    $length = 128;
+    $iteration = 64;
+    $prefix = 'GITHUB';
     
-    $saltalgo        = 'SHA1';
-    $useruniquealgo  = 'SHA256';
-    $signaturealgo   = 'MD5';
+    $saltalgo = 'SHA1';
+    $useruniquealgo = 'SHA256';
+    $signaturealgo = 'MD5';
     
-    $hash       = Aurphm::init()->setIteration($iteration) // You have to use ini to called this function statically, Set the iteration of pbkdf
+    $hash = Aurphm::init()->setIteration($iteration) // You have to use ini to called this function statically, Set the iteration of pbkdf
                 ->setPrefix($prefix) // Set the prefix of the hash
                 ->setSignatureLength($length) // Set signature length
                 ->setSaltAlgo($saltalgo) // Set salt hash algorithm
@@ -58,9 +58,9 @@ And here is the result look like:
 
 And lastly, how about authenticate? we can do that in simple way too like this:
 ```php
-$hash_value     	= 'AURPHM_e61ab31BBLABLABLABLABLABLABLABLA';
-$key            	= 'key';
-$credential     	= 'credential';
+$hash_value = 'AURPHM_e61ab31BBLABLABLABLABLABLABLABLA';
+$key = 'key';
+$credential = 'credential';
 
 if(Aurphm::authenticate($credential, $key, $hash_value))
 {
@@ -68,7 +68,7 @@ if(Aurphm::authenticate($credential, $key, $hash_value))
 }
 else
 {
-	echo "Authentication failed.";
+    echo "Authentication failed.";
 }
 ```
 

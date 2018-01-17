@@ -9,7 +9,7 @@ if(!isset($_POST['credential']))
 
 try{ 
     $credential = $_POST['credential'];
-    $password   = $_POST['password'];
+    $key        = $_POST['key'];
     $length     = $_POST['length'];
     $iteration  = $_POST['iteration'];
     $prefix     = $_POST['prefix'];
@@ -23,7 +23,7 @@ try{
                 ->setSaltAlgo($saltalgo)
                 ->setUserUniqueAlgo($useruniquealgo)
                 ->setSignatureAlgo($signaturealgo)
-                ->hash($credential, $password);
+                ->hash($credential, $key);
     
     echo $hash;
 }

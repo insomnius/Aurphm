@@ -8,8 +8,8 @@ if(!isset($_POST['credential']))
 }
 
 $credential = $_POST['credential'];
-$password   = $_POST['password'];
+$key        = $_POST['key'];
 
-$hash       = Aurphm::hash($credential, $password);
+$hash       = Aurphm::hash($credential, $key);
 
 echo $hash;

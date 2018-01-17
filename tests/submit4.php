@@ -3,10 +3,10 @@ require "../src/Aurphm.php";
 use insomnius\Aurphm;
 
 $hash_value     = $_POST['hash'];
-$password       = $_POST['password'];
+$key            = $_POST['key'];
 $credential     = $_POST['credential'];
 
-if(Aurphm::authenticate($credential, $password, $hash_value))
+if(Aurphm::authenticate($credential, $key, $hash_value))
 {
     $output['text']     = "Authentication success.";
     $output['type']     = "success";

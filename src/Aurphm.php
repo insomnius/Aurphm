@@ -9,19 +9,19 @@ use Exception;
 
 class Aurphm
 {
-    protected $iteration            = 16;
-    protected $signature_length     = 64;
-    protected $prefix               = "AURPHM";
+    protected static $iteration            = 16;
+    protected static $signature_length     = 64;
+    protected static $prefix               = "AURPHM";
     
-    protected $salt_algo            = "SHA256";
-    protected $userunique_algo      = "SHA512";
-    protected $signature_algo       = "SHA512";
+    protected static $salt_algo            = "SHA256";
+    protected static $userunique_algo      = "SHA512";
+    protected static $signature_algo       = "SHA512";
 
     public static function init()
     {
         return new self;
     }
-
+    
     public function setIteration($iteration)
     {
         if(!is_numeric($iteration))
@@ -29,14 +29,14 @@ class Aurphm
             throw new Exception("Iteration value must be integer.");
         }
 
-        $this->iteration    = $iteration;
+        self::$iteration    = $iteration;
 
         return $this;
     }
 
     public function setPrefix($prefix)
     {
-        $this->prefix       = $prefix;
+        self::$prefix       = $prefix;
 
         return $this;
     }
@@ -48,7 +48,7 @@ class Aurphm
             throw new Exception("Signature length can't be less than 16 character.");
         }
 
-        $this->signature_length     = $length;
+        self::$signature_length     = $length;
 
         return $this;
     }
@@ -60,7 +60,7 @@ class Aurphm
             throw new Exception("This hash algorithm '$algo' not avalaible in you php version.");
         }
 
-        $this->salt_algo    = $algo;
+        self::$salt_algo    = $algo;
         return $this;
     }
 
@@ -71,7 +71,7 @@ class Aurphm
             throw new Exception("This hash algorithm '$algo' not avalaible in you php version.");
         }
 
-        $this->userunique_algo  = $algo;
+        self::$userunique_algo  = $algo;
         return $this;
     }
 
@@ -82,7 +82,7 @@ class Aurphm
             throw new Exception("This hash algorithm '$algo' not avalaible in you php version.");
         }
 
-        $this->signature_algo   = $algo;
+        self::$signature_algo   = $algo;
         return $this;
     }
 
@@ -112,29 +112,24 @@ class Aurphm
         return $signature;
     }
 
-    protected function generateHashing($credential, $key)
+    public static function hash($credential, $key)
     {
         $randomChar     = bin2hex(random_bytes(64));
         $randomCharSSL  = bin2hex(openssl_random_pseudo_bytes(64));
         
-        $hmacHash       = hash_hmac($this->salt_algo, $key.$randomChar.$randomCharSSL, $randomChar.$randomCharSSL);
+        $hmacHash       = hash_hmac(self::$salt_algo, $key.$randomChar.$randomCharSSL, $randomChar.$randomCharSSL);
         
-        $prefix         = $this->prefix . "_";
+        $prefix         = self::$prefix . "_";
         
-        $userUnique     = hash_hmac($this->userunique_algo, $credential.$key, $hmacHash);
+        $userUnique     = hash_hmac(self::$userunique_algo, $credential.$key, $hmacHash);
         
         $beforeMerge    = "$prefix$hmacHash.$userUnique.UC_";
 
-        $pbkdf2         = hash_pbkdf2($this->signature_algo, $userUnique, $hmacHash, $this->iteration, $this->signature_length);
+        $pbkdf2         = hash_pbkdf2(self::$signature_algo, $userUnique, $hmacHash, self::$iteration, self::$signature_length);
         
         $hashed         = $beforeMerge.$pbkdf2;
         
         return $hashed;
-    }
-
-    public static function hash($credential, $key)
-    {
-        return (new self)->generateHashing($credential, $key);
     }
 
     protected function hashCheck($credential, $key, $hash)
@@ -142,9 +137,9 @@ class Aurphm
         $salt           = $this->getSalt($hash);
         $signature      = $this->getSignature($hash);
 
-        $userUnique     = hash_hmac("SHA512", $credential.$key, $salt);
+        $userUnique     = hash_hmac($this->userunique_algo, $credential.$key, $salt);
 
-        $pbkdf2         = "UC_".hash_pbkdf2("SHA512", $userUnique, $salt, $this->iteration, $this->signature_length);
+        $pbkdf2         = "UC_".hash_pbkdf2($this->signature_algo, $userUnique, $salt, $this->iteration, $this->signature_length);
 
         if(hash_equals($pbkdf2, $signature))
         {

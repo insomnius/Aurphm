@@ -8,5 +8,12 @@
             "email": "aliana.arib@gmail.com"
         }
     ],
+    "keywords": [
+        "hash",
+        "security",
+        "pbkdf",
+        "hmac"
+    ],
+    "license": "MIT",
     "require": {}
 }

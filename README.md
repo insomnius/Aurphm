@@ -1,3 +1,4 @@
+
 ## About Aurphm
 Aurelia pseudo hashing method (Aurphm) is my experimental function to hash password with HMAC (Hash-based message authentication code), PBKDF2 (Password-Based Key Derivation Function 2) and Pseudo Random Bytes. The main reason to create this library is to make good hash for security reason and the hash must be:
 
@@ -13,8 +14,8 @@ This library is inspired by a post in **crackstation** about how to make secure 
 ## How to use
 Here is a simple step to generate a hash:
 ```php
-	require "../src/Aurphm.php";
-	use insomnius\Aurphm;
+	require "../src/Aurphm/Aurphm.php";
+	use Aurphm\Aurphm;
 
 	$credential = "credential";
 	$key = "key";
@@ -71,6 +72,10 @@ else
     echo "Authentication failed.";
 }
 ```
+## Download
+You can download this package via github release, and if you using composer just type this and the magic is doing the work.
+
+	composer require insomnius/aurphm
 
 ## Demo
 You can also view the demo i made in tests folder using php development server, just type this in your command prompt if you're using windows (make sure you are in the root directory of this project):

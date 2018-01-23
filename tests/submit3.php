@@ -1,6 +1,6 @@
 <?php
 require "../src/Aurphm/Aurphm.php";
-use Aurphm;
+use Aurphm\Aurphm;
 
 $algo       = Aurphm::list();
 $content    = "";

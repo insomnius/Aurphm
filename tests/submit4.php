@@ -1,6 +1,6 @@
 <?php
 require "../src/Aurphm/Aurphm.php";
-use Aurphm;
+use Aurphm\Aurphm;
 
 $hash_value     = $_POST['hash'];
 $key            = $_POST['key'];

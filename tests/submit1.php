@@ -1,6 +1,6 @@
 <?php
 require "../src/Aurphm/Aurphm.php";
-use Aurphm;
+use Aurphm\Aurphm;
 
 if(!isset($_POST['credential']))
 {

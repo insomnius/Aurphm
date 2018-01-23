@@ -3,7 +3,7 @@
 //-- Aurelia Pseudo Hashing Method
 //-- Created by Arib
 
-namespace Insomnius;
+namespace Insomnius\Aurphm;
 
 use Exception;
 

@@ -1,6 +1,6 @@
 <?php
-require "../src/Aurphm.php";
-use insomnius\Aurphm;
+require "../src/Aurphm/Aurphm.php";
+use Aurphm;
 
 $algo       = Aurphm::list();
 $content    = "";

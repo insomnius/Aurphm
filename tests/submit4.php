@@ -1,6 +1,6 @@
 <?php
-require "../src/Aurphm.php";
-use insomnius\Aurphm;
+require "../src/Aurphm/Aurphm.php";
+use Aurphm;
 
 $hash_value     = $_POST['hash'];
 $key            = $_POST['key'];

@@ -8,6 +8,9 @@
             "email": "aliana.arib@gmail.com"
         }
     ],
+    "support": {
+        "source": "https://github.com/insomnius/Aurphmgit"
+    },
     "keywords": [
         "hash",
         "security",
@@ -17,6 +20,9 @@
     "autoload": {
         "psr-0": {
             "Aurphm\\": "src"
+        },
+        "psr-4": {
+            "Aurphm\\": "src/Aurphm"
         }
     },
     "license": "MIT",

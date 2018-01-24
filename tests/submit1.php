@@ -1,5 +1,5 @@
 <?php
-require "../src/Aurphm/Aurphm.php";
+require "../vendor/autoload.php";
 use Aurphm\Aurphm;
 
 if(!isset($_POST['credential']))

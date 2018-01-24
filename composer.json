@@ -11,6 +11,7 @@
     "support": {
         "source": "https://github.com/insomnius/Aurphm"
     },
+    "dist": {},
     "keywords": [
         "hash",
         "security",

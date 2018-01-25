@@ -25,6 +25,7 @@
             "Aurphm\\": "src/Aurphm"
         }
     },
+    "autoload-dev": {},
     "license": "MIT",
     "require": {},
     "require-dev": {

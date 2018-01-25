@@ -14,7 +14,6 @@ This library is inspired by a post in **crackstation** about how to make secure 
 ## How to use
 Here is a simple step to generate a hash:
 ```php
-	require "../src/Aurphm/Aurphm.php";
 	use Aurphm\Aurphm;
 
 	$credential = "credential";

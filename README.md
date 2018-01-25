@@ -73,14 +73,14 @@ else
 }
 ```
 ## Download
-You can download this package via github release, and if you using composer just type this and the magic is doing the work.
+You can download this package via github release or if you using composer just type this and the magic will do the work.
 
 	composer require insomnius/aurphm
 
 ## Demo
-You can also view the demo i made in tests folder using php development server, just type this in your command prompt if you're using windows (make sure you are in the root directory of this project):
+You can also view the demo i made in demo folder using php development server, just type this in your command prompt if you're using windows (make sure you are in the root directory of this project):
     
-    php -S localhost:7800 -t ./tests/
+    php -S localhost:7800 -t ./demo/
 
 And then open your browser with address http:\\localhost:7800.
 

@@ -28,6 +28,10 @@ class Aurphm
     protected static $HMAC_algo     = "SHA512";
     protected static $PBKDF_algo    = "SHA512";
 
+    /**
+     * Static initation
+     * @return object
+     */
     public static function init()
     {
         return new self;

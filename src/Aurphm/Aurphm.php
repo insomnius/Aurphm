@@ -145,7 +145,7 @@ class Aurphm
      * @param string $AURPHM
      * @return string
      */
-    protected function getSalt($AURPHM)
+    protected static function getSalt($AURPHM)
     {
         $validationArray    = explode(".", $AURPHM);
 
@@ -163,7 +163,7 @@ class Aurphm
      * @param string $AURPHM
      * @return string
      */
-    protected function getSignature($AURPHM)
+    protected static function getSignature($AURPHM)
     {
         $validationArray    = explode(".", $AURPHM);
         $signature          = $validationArray[2];
